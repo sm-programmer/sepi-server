@@ -1,0 +1,14 @@
+{
+  "name": "server-sepi",
+  "version": "1.0.0",
+  "description": "Servidor de gestión de procesos para la SEPI ESCOM",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "hummus": "^1.0.68",
+    "multer": "^1.2.1"
+  },
+  "author": "F & JBF",
+  "license": "MIT"
+}
