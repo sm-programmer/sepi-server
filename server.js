@@ -62,8 +62,9 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 	var pxApMat = pxApPat + sizeApPat.width + 20;
 	var pxNom = pxApMat + sizeApMat.width + 20;
 	
-	// Determina la posición de la X para indicar el género
+	// Determina la posición X para indicar el género y modalidad de estudio
 	var coordSexo = (req.body.sexo == 'F') ? 104 : 153;
+  var coordEstu = (req.body.statusPrg == "TP") ? 240 : 162;
 	
 	// Obtén la fecha actual DEL SERVIDOR
 	var fecha = new Date();
@@ -79,9 +80,16 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 		new Text(req.body.codPostal, 510, 590),
 		new Text(req.body.telefono, 477, 610),
 		new Text(req.body.email, 310, 570),
-		new Text('X', coordSexo, 570), // Sexo
-		new Text(fecha.getDate(), 96, 168), // Día
-		new Text(mesTxt, 127, 168), // Mes
+		new Text('X', coordSexo, 570),          // Sexo
+    new Text(req.body.instNs, 115, 456),    // Institución NS
+    new Text(req.body.placeNs, 327, 456),   // Lugar NS
+    new Text(req.body.periodNs, 440, 456),  // Periodo NS
+    new Text(req.body.instPg, 115, 436),    // Inst. posgrado
+    new Text(req.body.placePg, 327, 436),   // Lugar posgrado
+    new Text(req.body.periodPg, 440, 436),  // Periodo posgrado
+    new Text('X', coordEstu, 380),          // Modalidad de estudio
+		new Text(fecha.getDate(), 96, 168),     // Día
+		new Text(mesTxt, 127, 168),             // Mes
 		new Text(fecha.getFullYear(), 152, 168) // Año
 	];
 	
@@ -93,17 +101,6 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 
 	pdfPageCtx.writeText('ESCOM', 50, 522, inputTxtOpts);
 	pdfPageCtx.writeText('M. en C. en Sistemas Computacionales Móviles', 210, 522, inputTxtOpts);
-
-	pdfPageCtx.writeText('IPN - ESCOM', 115, 456, inputTxtOpts);
-	pdfPageCtx.writeText('México, D.F.', 327, 456, inputTxtOpts);
-	pdfPageCtx.writeText('2010-2015', 440, 456, inputTxtOpts);
-
-	pdfPageCtx.writeText('IPN - ESCOM', 115, 436, inputTxtOpts);
-	pdfPageCtx.writeText('México, D.F.', 327, 436, inputTxtOpts);
-	pdfPageCtx.writeText('2010-2015', 440, 436, inputTxtOpts);
-
-	pdfPageCtx.writeText('X', 162, 380, inputTxtOpts);
-	pdfPageCtx.writeText('X', 240, 380, inputTxtOpts);
 
 	var clave = "011A6264";
 	for (var i = 0; i < clave.length; i++) {

@@ -1,0 +1,7 @@
+/* CSS file for general bits */
+
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
