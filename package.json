@@ -4,11 +4,19 @@
   "description": "Servidor de gestión de procesos para la SEPI ESCOM",
   "main": "server.js",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "hummus": "^1.0.68",
-    "multer": "^1.2.1"
+    "body-parser": "^1.16.0",
+    "express": "^4.14.1",
+    "foreman": "^2.0.0",
+    "hummus": "^1.0.73",
+    "multer": "^1.3.0",
+    "mysql": "^2.13.0"
   },
   "author": "F & JBF",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "7.4.0"
+  },
+  "scripts": {
+    "start": "nf start"
+  }
 }
