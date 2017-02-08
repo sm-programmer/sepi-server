@@ -21,6 +21,9 @@ app.use(logger);
 // Módulo para generar objetos de tipo Text
 var Text = require('./objText.js').Text;
 
+// Módulo para registrar usuarios a la BD
+var addUserToDB = require('./addUserToDB.js').addUserToDB;
+
 /**
  * Muestra en la consola la petición realizada por cualquier cliente.
  * @param {req} La petición HTTP que el cliente remite al servidor.
@@ -115,6 +118,11 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 	pdfWriter.end();
 
 	res.end();
+});
+
+// Procesar las peticiones de inserción de usuarios
+app.post('/signUp', upload.array(), function(req, res) {
+	addUserToDB(req, res);
 });
 
 app.listen(port);
