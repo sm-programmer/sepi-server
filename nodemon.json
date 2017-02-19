@@ -1,0 +1,4 @@
+{
+	"verbose": true,
+	"ignore": ["db/*", "fonts/*", "public/*", "templates/*", "views/*", "README.md", "Procfile", ".env"]
+}

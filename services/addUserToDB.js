@@ -2,7 +2,6 @@
 /** Módulo de registro de usuarios */
 
 var pool = require("./mysql_db.js").pool;
-var SQLQuery = require("./SQLQuery.js").SQLQuery;
 
 /**
  * Registra al usuario en la base de datos de alumnos.
@@ -60,39 +59,6 @@ function addUserToDB(req, res) {
 			return;
 		});
 	});
-}
-
-/**
- * Realiza la consulta exploratoria: ¿existen filas con la CURP proporcionada por el usuario?
- * @param {conn} La conexión que se realiza a la base de datos.
- * @param {req} La petición HTTP que el cliente remite al servidor.
- * @param {res} La respuesta HTTP que el servidor envía al cliente.
- * @param {callback} Función auxiliar que obtiene los resultados de esta consulta.
- * @param {data} Datos adicionales que se necesitan en todas las transacciones.
- */
-function checkIfExists(conn, req, res, callback, data) {
-	conn.query(
-		'select COUNT(*) as ans from ASPIRANTE where CURP = ?;',
-		user.curp,
-		function(err, rows) {
-			// Si no hay filas con CURP idéntica, crea la entrada en la tabla
-			if (rows[0].ans == 0) {
-				callback(conn, req, res, null, data);
-			} else {
-				data += "<p><b>ERROR:</b> Ya existe un usuario con la misma CURP en el sistema.</p>";
-			}
-		}
-	);
-}
-
-function performAdd(conn, req, res, callback, data) {
-	conn.query(
-		'insert into ASPIRANTE values(?,?,?,?,?,?,?,?,?);',
-		[user.curp, user.name, user.surname1, user.surname2, user.sexo, user.address, user.colonia, user.telefono, user.codPostal],
-		function(err, rows) {
-			pageStr += "<p>El usuario " + user.curp + " ha sido exitosamente registrado en el sistema.</p>";
-		}
-	);
 }
 
 exports.addUserToDB = addUserToDB;

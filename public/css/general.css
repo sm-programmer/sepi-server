@@ -17,3 +17,7 @@ img.center {
 .bg-info-over {
   background-color: #d9edf7 !important;
 }
+
+.text-justify {
+  text-align: justify;
+}

@@ -1,0 +1,41 @@
+<!-- Plantilla general para las páginas del sistema -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SEPI ESCOM<%= locals.barTitle ? ' - ' + locals.barTitle : '' %></title>
+		<meta charset="utf-8">
+		
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/general.css">
+		
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body>
+		<%- include('partials/header.ejs') %>
+		<%- include('partials/navbar.ejs') %>
+		<div class="container-fluid">
+			<div class="row">
+				<h1 class="text-center col-sm-offset-2 col-sm-8"><%= locals.pageTitle ? pageTitle : '' %></h1>
+			</div>
+			<% if (locals.popup) { %>
+				<div class="row">
+					<p class="text-<%= popup.type %> well bg-<%= popup.type %>-over col-sm-offset-2 col-sm-8"><%- popup.text %></p>
+				</div>
+			<% } %>
+			<% if (locals.pageText) { %>
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-8 well">
+					<% for (var i = 0; i < pageText.length; i++) { %>
+						<p><%- pageText[i] %></p>
+					<% } %>
+					</div>
+				</div>
+			<% } %>
+		</div>
+		<%- include('partials/footer.ejs') %>
+	</body>
+</html>

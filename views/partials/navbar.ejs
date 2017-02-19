@@ -1,0 +1,30 @@
+<!-- Plantilla para la barra de navegación -->
+
+<% if (locals.navbar) { %>
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="navbar navbar-default col-sm-offset-1 col-sm-10">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<!-- Funcionalidad para navegadores en teléfonos o pantallas pequeñas -->
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu-collapse" aria-expanded="false">
+							<span class="sr-only">Mostrar/ocultar menú</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">SEPI-ESCOM</a>
+					</div>
+					<div class="collapse navbar-collapse" id="navbar-menu-collapse">
+						<ul class="nav navbar-nav">
+							<% for (var i = 0; i < navbar.items.length; i++) { %>
+								<li><a href="<%= navbar.items[i].url %>"><%- navbar.items[i].text %></a></li>
+							<% } %>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+<% } %>
+<hr>

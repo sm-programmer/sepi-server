@@ -1,0 +1,14 @@
+{
+	"barTitle": "Bienvenido",
+	"pageTitle": "¡Bienvenido al sistema SEPI ESCOM!",
+	"pageText": [
+		"Bienvenido al sistema de gestión de la Sección de Estudios de Posgrado e Investigación de la Escuela Superior de Cómputo.",
+		"Este sistema está pensado para auxiliarle en la realización de trámites comunes, relacionados con el departamiento. Para acceder a todas sus funciones, es necesario registrarse. <a href=\"registro.html\">Haga clic aquí</a> para llevar a cabo el registro."
+	],
+	"navbar": {
+		"items": [
+			{ "text": "Acerca de la SEPI", "url": "#" },
+			{ "text": "Registrarse", "url": "registro.html" }
+		]
+	}
+}

@@ -2,6 +2,7 @@
 
 /** Módulo para la puesta a punto de un servidor HTTP */
 
+// El servidor en sí
 var express = require('express');
 var app = express();
 
@@ -10,19 +11,34 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
 
+// Número de puerto de escucha
 var port = 8080;
 
+// Métodos permitidos para enviar datos por formularios
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Punto de montaje para servir archivos estáticos
 app.use(express.static(__dirname + '/public'));
 
+// Uso de una bitácora
 app.use(logger);
 
-// Módulo para generar objetos de tipo Text
-var Text = require('./objText.js').Text;
+// Módulo para leer del servidor archivos JSON
+var jsonfile = require("jsonfile");
 
-// Módulo para registrar usuarios a la BD
-var addUserToDB = require('./addUserToDB.js').addUserToDB;
+// Utilizar EJS para permitir maquetado vía plantillas (como en JSP)
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+// Ruta relativa donde se encuentran los servicios implementados por el servidor
+var _servdir = './services/';
+
+// Módulo para generar objetos de tipo Text
+var Text = require(_servdir + 'objText.js').Text;
+
+// Centinela que responde a emisión de eventos de manipulación de la BD
+var mysql_listener = require(_servdir + 'mysql_listener.js').mysql_listener;
 
 /**
  * Muestra en la consola la petición realizada por cualquier cliente.
@@ -122,7 +138,13 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 
 // Procesar las peticiones de inserción de usuarios
 app.post('/signUp', upload.array(), function(req, res) {
-	addUserToDB(req, res);
+	mysql_listener.emit("add_user", req, res);
+});
+
+app.get('/', function(req, res) {
+	jsonfile.readFile(__dirname + "/views/json/index.json", function(err, obj) {
+		res.render("general", obj);
+	});
 });
 
 app.listen(port);
