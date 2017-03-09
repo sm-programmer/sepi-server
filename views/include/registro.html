@@ -1,0 +1,101 @@
+<div class="row">
+	<form id="registerForm" class="form-horizontal well col-sm-offset-2 col-sm-8" method="post" action="signUp" enctype="application/x-www-form-urlencoded">
+		<h2 class="col-sm-offset-1">Datos personales</h2>
+		
+		<div class="form-group">
+			<label for="curp" class="col-sm-offset-1 col-sm-2 control-label">CURP</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="curp" name="curp" placeholder="Incluya los 18 caracteres" value="" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<a href="https://consultas.curp.gob.mx/" target="_blank">¿No recuerda su CURP?</a>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-sm-offset-1 col-sm-2 control-label">Nombre</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="name" name="name" placeholder="Solamente el nombre" value="" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="surname1" class="col-sm-offset-1 col-sm-2 control-label">Apellido paterno</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="surname1" name="surname1" placeholder="Solamente apellido paterno" value="" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="surname2" class="col-sm-offset-1 col-sm-2 control-label">Apellido materno</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="surname2" name="surname2" placeholder="Solamente apellido materno" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="sexo" class="col-sm-offset-1 col-xs-2 control-label">Sexo</label>
+			<div class="col-xs-5 col-sm-4">
+				<div class="form-check">
+					<label class="form-check-label">
+						<input class="form-check-input" type="radio" id="sexoM" name="sexo" value="M">
+						Masculino
+					</label>
+				</div>
+			</div>
+			<div class="col-xs-5 col-sm-4">
+				<div class="form-check">
+					<label class="form-check-label">
+						<input class="form-check-input" type="radio" id="sexoF" name="sexo" value="F">
+						Femenino
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="address" class="col-sm-offset-1 col-sm-2 control-label">Dirección</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="address" name="address" placeholder="Calle, números exterior e/o interior" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="colonia" class="col-sm-offset-1 col-sm-2 control-label">Colonia</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="colonia" name="colonia" placeholder="Solamente colonia" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="codPostal" class="col-sm-offset-1 col-sm-2 control-label">Código postal</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" id="codPostal" name="codPostal" placeholder="Ingrese los 5 dígitos" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="telefono" class="col-sm-offset-1 col-sm-2 control-label">Teléfono</label>
+			<div class="col-sm-8">
+				<input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Formato a 10 dígitos" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email" class="col-sm-offset-1 col-sm-2 control-label">E-mail:</label>
+			<div class="col-sm-8">
+				<input type="email" class="form-control" id="email" name="email" placeholder="alguien@dominio.com" value="">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div id="msgSpace"></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-5 col-sm-offset-1">
+				<a class="btn btn-default form-control" href="/" role="button">Regresar</a>
+				<!--input id="back" name="back" type="button" value="Regresar" class="btn btn-default form-control"-->
+			</div>
+			<div class="visible-xs-block">&nbsp;</div>
+			<div class="col-sm-5">
+				<input id="submit" name="submit" type="submit" value="Registrarse" class="btn btn-primary form-control">
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript" src="js/registro.js"></script>

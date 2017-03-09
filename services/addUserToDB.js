@@ -37,12 +37,24 @@ function addUserToDB(req, res) {
 				// Si hay un error, muy posiblemente ya existe la entrada en la BD; apartar ese caso especial
 				if (err) {
 					if (err.errno == 1062 && err.sqlState == "23000") {
-						res.status(200).send("<p><b>ERROR:</b> Ya existe un usuario registrado con la CURP proporcionada.</p>");
+						res.json({
+							"code": "1062",
+							"status": "Ya existe un usuario registrado con la CURP proporcionada."
+						});
+						//res.status(200).send("<p><b>ERROR:</b> </p>");
 					} else {
-						res.json(err);
+						res.json({
+							"code": "999",
+							"status": err.message || "Unknown"
+						});
+						//res.json(err);
 					}
 				} else {
-					res.status(200).send("<p>El usuario " + user.curp + " ha sido exitosamente registrado en el sistema.</p>");
+					res.json({
+						"code": "0",
+						"status": ""
+					});
+					//res.status(200).send("<p>El usuario " + user.curp + " ha sido exitosamente registrado en el sistema.</p>");
 				}
 				
 				// Finaliza la escritura en la respuesta HTTP

@@ -21,20 +21,39 @@
 			<div class="row">
 				<h1 class="text-center col-sm-offset-2 col-sm-8"><%= locals.pageTitle ? pageTitle : '' %></h1>
 			</div>
-			<% if (locals.popup) { %>
-				<div class="row">
-					<p class="text-<%= popup.type %> well bg-<%= popup.type %>-over col-sm-offset-2 col-sm-8"><%- popup.text %></p>
-				</div>
-			<% } %>
-			<% if (locals.pageText) { %>
-				<div class="row">
-					<div class="col-sm-offset-2 col-sm-8 well">
-					<% for (var i = 0; i < pageText.length; i++) { %>
-						<p><%- pageText[i] %></p>
-					<% } %>
-					</div>
-				</div>
-			<% } %>
+			
+			<!-- Check "items" in order -->
+			<% if (locals.items) {
+				for (var i = 0; i < items.length; i++) {
+					switch (items[i].type) {
+						case "mainText":
+							var pageText = items[i].value;
+					%>
+							<div class="row">
+								<div class="col-sm-offset-2 col-sm-8 well">
+								<% for (var j = 0; j < pageText.length; j++) { %>
+									<p><%- pageText[j] %></p>
+								<% } %>
+								</div>
+							</div>
+					<%
+							break;
+						case "include":
+					%>
+							<%- include('include/' + items[i].value) %>
+					<%
+							break;
+						case "popup":
+							var popup = items[i].value;
+					%>
+						<div class="row">
+							<p class="text-<%= popup.type %> well bg-<%= popup.type %>-over col-sm-offset-2 col-sm-8"><%- popup.text %></p>
+						</div>
+					<%
+					}
+				}
+			} %>
+			<!-- END -->
 		</div>
 		<%- include('partials/footer.ejs') %>
 	</body>

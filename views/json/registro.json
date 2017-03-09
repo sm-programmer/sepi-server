@@ -1,0 +1,28 @@
+{
+	"barTitle": "Registro",
+	"pageTitle": "Registrarse como aspirante",
+	"navbar": {
+		"items": [
+			{ "text": "Regresar", "url": "/" }
+		]
+	},
+	"items": [
+		{
+			"type": "mainText",
+			"value": [
+				"Para utilizar todas las funciones del sistema, usted deberá registrarse. Para ello, rellene el siguiente formulario, y cuando termine, haga clic en \"Registrarse\"."
+			]
+		},
+		{
+			"type": "popup",
+			"value": {
+				"type": "danger",
+				"text": "<strong>IMPORTANTE:</strong> Asegúrese de que los datos que proporcione sean verídicos, puesto que serán utilizados en cualquier trámite relacionado con el departamento."
+			}
+		},
+		{
+			"type": "include",
+			"value": "registro.html"
+		}
+	]
+}

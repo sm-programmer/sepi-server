@@ -12,3 +12,9 @@ A NodeJS server for the SEPI ESCOM system.
   - Implemented basic integration with DB via signals and events
   - Experimental EJS templating via external, editable JSON files
   - Added NodeMon as development tool for server restart when changing source code
+
+## 09-Mar-2017
+  - Updated EJS structure in order to allow sub-parts in HTML and ordered items
+  - Modelled the sign-up process as a callable API with JSON responses
+  - Integration of JSON-based content is easier at the server side
+  - The sign up form now uses AJAX to request user addition in the DB.

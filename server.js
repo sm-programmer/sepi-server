@@ -30,6 +30,7 @@ var jsonfile = require("jsonfile");
 // Utilizar EJS para permitir maquetado vía plantillas (como en JSP)
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
 // Ruta relativa donde se encuentran los servicios implementados por el servidor
 var _servdir = './services/';
@@ -39,6 +40,9 @@ var Text = require(_servdir + 'objText.js').Text;
 
 // Centinela que responde a emisión de eventos de manipulación de la BD
 var mysql_listener = require(_servdir + 'mysql_listener.js').mysql_listener;
+
+// Módulo que permite acceder al sistema de archivos del servidor
+var fs = require('fs');
 
 /**
  * Muestra en la consola la petición realizada por cualquier cliente.
@@ -136,15 +140,53 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 	res.end();
 });
 
+/**
+ * Obtiene los nombres de los archivos de un directorio determinado.
+ * @param {dir} El directorio a revisar.
+ * @param {filelist} Una lista sobre la cual se agregarán los archivos encontrados. */
+function walkSync(dir, filelist) {
+	var files = fs.readdirSync(dir);
+	
+	filelist = filelist || [];
+	
+	files.forEach(function (file) {
+		if (fs.statSync(dir + file).isDirectory()) {
+			filelist = walkSync(dir + file + '/', filelist);
+		} else {
+			filelist.push(file);
+		}
+	});
+	
+	return filelist;
+}
+
+/**
+ * Asigna a varias direcciones la muestra de archivos JSON maquetados. */
+function assignJsonPages() {
+	const dirPath = __dirname + '/views/json/';
+	
+	var jsonFiles = walkSync(dirPath, []);
+	
+	jsonFiles.forEach(file => {
+		fileName = file.split(".")[0];
+		
+		app.get('/' + fileName + ".html", function(req, res) {
+			jsonfile.readFile(dirPath + file, function(err, obj) {
+				res.render("general", obj);
+			});
+		});
+	});
+}
+
 // Procesar las peticiones de inserción de usuarios
 app.post('/signUp', upload.array(), function(req, res) {
 	mysql_listener.emit("add_user", req, res);
 });
 
+assignJsonPages();
+
 app.get('/', function(req, res) {
-	jsonfile.readFile(__dirname + "/views/json/index.json", function(err, obj) {
-		res.render("general", obj);
-	});
+	res.redirect('/index.html');
 });
 
 app.listen(port);
