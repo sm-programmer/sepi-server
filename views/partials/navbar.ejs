@@ -20,9 +20,17 @@
 							<%
 							if (navbar.items) {
 								for (var i = 0; i < navbar.items.length; i++) {
+									//userVisible = navbar.items[i].userVisible;
+									
+									//if (userVisible === undefined) {
 							%>
 								<li><a href="<%= navbar.items[i].url %>"><%- navbar.items[i].text %></a></li>
 							<%
+									//} else if (userVisible && user || !userVisible && !user) {
+							%>
+								<!--li><a href="<%= navbar.items[i].url %>"><%- navbar.items[i].text %></a></li-->
+							<%
+									//}
 								}
 							}
 							%>

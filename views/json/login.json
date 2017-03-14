@@ -1,0 +1,21 @@
+{
+	"barTitle": "Iniciar sesión",
+	"pageTitle": "Iniciar sesión",
+	"navbar": {
+		"items": [
+			{ "text": "Regresar", "url": "/" }
+		]
+	},
+	"items": [
+		{
+			"type": "mainText",
+			"value": [
+				"Por favor, rellene el siguiente formulario para iniciar sesión en el sistema. Cuando termine, haga clic en \"Iniciar sesión\"."
+			]
+		},
+		{
+			"type": "include",
+			"value": "login.html"
+		}
+	]
+}

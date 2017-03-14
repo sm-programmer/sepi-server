@@ -28,8 +28,8 @@ function addUserToDB(req, res) {
 		
 		// Intenta insertar al usuario en la base de datos
 		conn.query(
-			'insert into ASPIRANTE values(?,?,?,?,?,?,?,?,?);',
-			[user.curp, user.name, user.surname1, user.surname2, user.sexo, user.address, user.colonia, user.telefono, user.codPostal],
+			'insert into ASPIRANTE values(?,?,?,?,?,?,?,?,?,?);',
+			[user.curp, user.name, user.surname1, user.surname2, user.sexo, user.address, user.colonia, user.telefono, user.codPostal, user.password],
 			function(err, rows) {
 				// Libera la conexión de la BD
 				conn.release();
@@ -38,20 +38,20 @@ function addUserToDB(req, res) {
 				if (err) {
 					if (err.errno == 1062 && err.sqlState == "23000") {
 						res.json({
-							"code": "1062",
+							"code": 1062,
 							"status": "Ya existe un usuario registrado con la CURP proporcionada."
 						});
 						//res.status(200).send("<p><b>ERROR:</b> </p>");
 					} else {
 						res.json({
-							"code": "999",
+							"code": 999,
 							"status": err.message || "Unknown"
 						});
 						//res.json(err);
 					}
 				} else {
 					res.json({
-						"code": "0",
+						"code": 0,
 						"status": ""
 					});
 					//res.status(200).send("<p>El usuario " + user.curp + " ha sido exitosamente registrado en el sistema.</p>");

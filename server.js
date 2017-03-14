@@ -44,11 +44,22 @@ var mysql_listener = require(_servdir + 'mysql_listener.js').mysql_listener;
 // Módulo que permite acceder al sistema de archivos del servidor
 var fs = require('fs');
 
+// Módulo que permite implementar inicios de sesión
+var sessions = require(_servdir + 'sessions.js');
+var passport = sessions.passport;
+var overallSession = sessions.overallSession;
+var conEnsLog = require('connect-ensure-login');
+
+app.use(overallSession);
+app.use(passport.initialize());
+app.use(passport.session());
+
 /**
  * Muestra en la consola la petición realizada por cualquier cliente.
  * @param {req} La petición HTTP que el cliente remite al servidor.
  * @param {res} La respuesta HTTP que se enviará al cliente.
- * @param {next} Una función de encadenamiento provista internamente para ejecutar la acción deseada. */
+ * @param {next} Una función de encadenamiento provista internamente para ejecutar la acción deseada.
+ */
 function logger(req, res, next) {
 	console.log('Request from: ' + req.ip + ' For: ' + req.path);
 	next();
@@ -143,7 +154,8 @@ app.post('/generatePDF', upload.array(), function(req, res) {
 /**
  * Obtiene los nombres de los archivos de un directorio determinado.
  * @param {dir} El directorio a revisar.
- * @param {filelist} Una lista sobre la cual se agregarán los archivos encontrados. */
+ * @param {filelist} Una lista sobre la cual se agregarán los archivos encontrados.
+ */
 function walkSync(dir, filelist) {
 	var files = fs.readdirSync(dir);
 	
@@ -161,7 +173,8 @@ function walkSync(dir, filelist) {
 }
 
 /**
- * Asigna a varias direcciones la muestra de archivos JSON maquetados. */
+ * Asigna a varias direcciones la muestra de archivos JSON maquetados.
+ */
 function assignJsonPages() {
 	const dirPath = __dirname + '/views/json/';
 	
@@ -182,6 +195,20 @@ function assignJsonPages() {
 app.post('/signUp', upload.array(), function(req, res) {
 	mysql_listener.emit("add_user", req, res);
 });
+
+// Procesar las peticiones de inicios de sesión
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login.html' }), function(req, res) {
+	res.redirect('/');
+});
+
+app.get('/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
+
+//app.get('/profile', conEnsLog.ensureLoggedIn('/login.html'), function(req, res) {
+//	res.json(req.user);
+//});
 
 assignJsonPages();
 

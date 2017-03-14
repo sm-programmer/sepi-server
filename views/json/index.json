@@ -4,7 +4,8 @@
 	"navbar": {
 		"items": [
 			{ "text": "Acerca de la SEPI", "url": "#" },
-			{ "text": "Registrarse", "url": "registro.html" }
+			{ "text": "Registrarse", "url": "registro.html", "userVisible": "false" },
+			{ "text": "Iniciar sesión", "url": "login.html", "userVisible": "false" }
 		]
 	},
 	"items": [
